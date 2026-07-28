@@ -71,7 +71,18 @@ Examples:
 - a provider-specific appended system prompt is not authoritative for user-facing agent identity if the provider harness has an earlier controlling system identity that the model continues to treat as its own;
 - a capability manifest delivered through a trusted field is still only a request if the runtime authority layer, rather than that field, determines effective capability.
 
-When authoritative delivery cannot be established, the safe outcome is `unsupported_trusted_framing`, `insufficient_evidence`, provider incompatibility, or another truthful fail-closed state—not successful configuration.
+When authoritative delivery cannot be established, use the canonical fail-closed outcomes appropriate to the evidence:
+
+```text
+unsupported_trusted_framing
+unknown_channel_precedence
+provider_incompatible
+insufficient_evidence
+```
+
+Do not report successful configuration.
+
+The canonical meanings of these outcomes are defined in [`failure-outcome-taxonomy.md`](failure-outcome-taxonomy.md).
 
 ## Operator and task input
 
@@ -246,7 +257,9 @@ Implementations of this contract should test:
 - trusted configuration is actually authoritative for the semantic class it claims to establish;
 - conflicting provider- or harness-owned higher-priority configuration is detected rather than ignored;
 - a present but non-authoritative trusted channel cannot satisfy compliance;
-- unknown channel precedence fails closed instead of being reported as successful trusted framing.
+- unknown channel precedence yields `unknown_channel_precedence` rather than successful trusted framing;
+- an incompatible provider/harness yields `provider_incompatible` rather than a weaker provider-success claim;
+- unsupported semantic authority yields `unsupported_trusted_framing` rather than successful configuration.
 
 The governing sentence is:
 
