@@ -15,11 +15,11 @@ bind intended work
    ↓
 forge
    ↓
-verify
+verify source and wiring
    ↓
-prove
+prove live behavior
    ↓
-review
+review applicability
    ↓
 activate when explicitly authorized
    ↓
@@ -110,6 +110,53 @@ The goal is not to require approval for every low-level deterministic action. Th
 - publishing externally;
 - merging a reviewed result.
 
+## Mechanical governance substrate
+
+The ecosystem must reuse shared mechanisms beneath its doctrine.
+
+These mechanisms include:
+
+```text
+trusted-channel framework
+confined process runner
+provider-neutral capability adapters
+proof registry
+verification invalidation engine
+derived-evidence claim constructors
+production wiring tests
+hostile/adversarial fixtures
+runtime capability projection
+activation ceremony
+```
+
+The purpose is not to add ceremony to every specialist. It is to prevent every specialist from rediscovering the same failure modes.
+
+Three laws apply across the ecosystem:
+
+```text
+A security-relevant evidence claim must be derived from its observation.
+A proof must stop governing the runtime when its bound subject changes.
+Inputs with different trust semantics must travel through different structural channels.
+```
+
+## Proof layers
+
+The ecosystem distinguishes:
+
+```text
+typed law
+wiring proof
+live proof
+```
+
+Typed law constrains representable source and schemas.
+
+Wiring proof verifies what production adapters actually pass through arguments, environment, paths, contexts, transports, signers, and tool routers.
+
+Live proof verifies what an external process or real effect did under bounded conditions.
+
+None may impersonate another.
+
 ## End-to-end intended flow
 
 ```text
@@ -117,7 +164,9 @@ Tobyworld need
       ↓
 Mirror understands context
       ↓
-Mirror drafts blueprint
+Mirror drafts blueprint + channel map
+      ↓
+Mirror defines verification subject + invalidation triggers
       ↓
 Mirror drafts bounded BUILD_LIST items
       ↓
@@ -131,9 +180,15 @@ ToadAid MCP exposes governed tools
       ↓
 implementation is forged
       ↓
-build + tests + adversarial evaluation
+typecheck + deterministic evaluation
+      ↓
+production wiring verification
+      ↓
+adversarial / live evaluation
       ↓
 independent verification
+      ↓
+proof applicability check
       ↓
 evidence + receipts
       ↓
@@ -146,7 +201,29 @@ new capability joins ecosystem
 Mirror understands the enlarged system
 ```
 
+If the verified subject changes before activation or during operation:
+
+```text
+historical proof preserved
+      ↓
+current proof invalidated
+      ↓
+replacement proof required
+      ↓
+authority remains denied or paused
+```
+
 This is **governed ecosystem evolution**, not uncontrolled recursive self-improvement.
+
+## Governance-cost objective
+
+The ecosystem should not require every specialist to rebuild its own governance runtime.
+
+As shared substrate matures, governance cost per new specialist should decrease.
+
+A specialist should primarily provide its identity, purpose, domain capability manifest, explicit denials, domain evidence adapters, and domain acceptance tests.
+
+Confinement, trusted channels, proof applicability, receipt truth, and activation machinery should increasingly be inherited from shared substrate.
 
 ## Design objective
 

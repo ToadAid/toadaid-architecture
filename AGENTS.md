@@ -25,10 +25,14 @@ Do not infer ecosystem intent solely from current code.
 4. **Provider completion is not ToadAid completion.** A model ending its turn does not establish system acceptance or task completion.
 5. **Evidence is not authority.** Passing tests proves behavior under tested conditions; it does not authorize activation.
 6. **Generated source cannot grant runtime authority.** Permission must come from trusted policy/runtime controls outside the generated code.
-7. **Do not silently widen scope.** If intended work cannot be completed under its declared authority ceiling or file/tool scope, stop and surface the conflict.
-8. **Do not silently rewrite doctrine to match implementation.** If implementation conflicts with canonical architecture, report the conflict for deliberate architectural review.
-9. **Prefer shared governed substrate over duplicated agent infrastructure.** New specialists should reuse Mirror, ToadAid Coder, ToadAid MCP, evidence, and governance layers where appropriate.
-10. **Providers are replaceable reasoning engines.** Do not make provider-specific behavior the root of system truth.
+7. **Evidence claims must be derived.** Do not author security-relevant values or evidence bases as convenient literals when a canonical observation, classifier, or enforcement mechanism exists.
+8. **Proof applicability is not permanent.** Preserve historical proof, but invalidate its current applicability when the bound subject or production path changes.
+9. **Different trust classes require different channels.** A provenance label inside one undifferentiated prompt is not structural trusted-channel separation.
+10. **Typed law, wiring proof, and live proof are distinct.** None may be presented as evidence for a layer it did not exercise.
+11. **Do not silently widen scope.** If intended work cannot be completed under its declared authority ceiling or file/tool scope, stop and surface the conflict.
+12. **Do not silently rewrite doctrine to match implementation.** If implementation conflicts with canonical architecture, report the conflict for deliberate architectural review.
+13. **Prefer shared governed substrate over duplicated agent infrastructure.** New specialists should reuse Mirror, ToadAid Coder, ToadAid MCP, evidence, and governance layers where appropriate.
+14. **Providers are replaceable reasoning engines.** Do not make provider-specific behavior the root of system truth.
 
 ## Planning rule
 
@@ -40,7 +44,10 @@ A valid implementation plan should identify:
 - dependencies;
 - authority ceiling;
 - allowed and forbidden capabilities;
-- required tests and evaluations;
+- input trust classes and structural channel map;
+- production paths carrying authority-relevant behavior;
+- verification subject and invalidation triggers;
+- required typed, wiring, and live tests where relevant;
 - evidence required for completion;
 - whether activation is explicitly included or explicitly excluded.
 

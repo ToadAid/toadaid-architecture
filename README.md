@@ -23,6 +23,26 @@ The operating sequence is:
 
 > **Mirror imagines. Mirror blueprints. BUILD_LIST binds intent. ToadAid Coder forges. Codex and Grok reason. ToadAid MCP equips. Runtime executes. Evidence proves. Governance decides. Humans authorize. The ecosystem grows.**
 
+## Mechanical governance
+
+Doctrine alone is not enough. Cross-ecosystem laws must be expressed through mechanisms that make false assurance difficult to author and easy to detect.
+
+The architecture therefore requires three additional mechanical contracts:
+
+- **Derived evidence:** security-relevant claims must be derived from the observation or enforcement mechanism they describe.
+- **Verification applicability:** proof remains historical truth, but loses current applicability when its bound subject changes.
+- **Trusted-channel separation:** information with different trust semantics must travel through different structural channels.
+
+The combined operating law is:
+
+```text
+Doctrine states the law.
+Mechanism prevents the lie.
+Wiring proves the mechanism is connected.
+Live evidence proves the subject behaved.
+Invalidation prevents an old proof from governing a changed system.
+```
+
 ## Mandatory read order for agents
 
 Before planning ecosystem-level work, read:
@@ -31,7 +51,7 @@ Before planning ecosystem-level work, read:
 2. [`ECOSYSTEM.md`](ECOSYSTEM.md)
 3. [`GOVERNANCE.md`](GOVERNANCE.md)
 4. [`blueprints/governed-ecosystem-architecture.md`](blueprints/governed-ecosystem-architecture.md)
-5. the blueprint and contract relevant to the component being changed
+5. the blueprint and contracts relevant to the component being changed
 6. the implementation repository's local instructions and `BUILD_LIST.md`
 
 If implementation and canonical architecture conflict, **surface the conflict instead of silently changing architectural intent**.
@@ -75,7 +95,10 @@ toadaid-architecture/
 │   ├── blueprint-contract.md
 │   ├── build-list-contract.md
 │   ├── capability-authority-boundary.md
-│   └── evidence-activation-contract.md
+│   ├── derived-evidence-contract.md
+│   ├── evidence-activation-contract.md
+│   ├── trusted-channel-separation-contract.md
+│   └── verification-applicability-contract.md
 ├── maps/
 │   └── repository-map.md
 └── adr/
