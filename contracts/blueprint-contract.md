@@ -32,11 +32,16 @@ For inputs with different trust semantics, define:
 - the structural channel each input uses;
 - who may write each channel;
 - which components may read it;
+- which semantic classes each trusted channel is intended to establish;
+- provider-, harness-, host-, or transport-owned configuration that can precede or conflict with it;
+- precedence rules and how authoritative delivery is verified;
 - permitted transformations between channels;
 - forbidden channel crossings;
 - how production wiring preserves the separation.
 
 A provenance label inside one undifferentiated prompt is not sufficient channel separation.
+
+A separate channel is not automatically authoritative. If the receiving provider or harness has conflicting controlling configuration that ToadAid cannot override or reconcile, the blueprint must state that limitation and fail closed for the affected semantic class rather than claiming successful trusted framing.
 
 ### Outputs
 
@@ -75,12 +80,13 @@ At minimum consider:
 - false capability claims;
 - poisoned context;
 - trusted-channel collapse;
+- non-authoritative trusted-channel delivery;
 - stale or inapplicable proof;
 - provider failure.
 
 ### Failure semantics
 
-Define safe outcomes for missing evidence, denied authority, unavailable tools, provider failure, verification failure, proof invalidation, and activation denial.
+Define safe outcomes for missing evidence, denied authority, unavailable tools, provider failure, verification failure, proof invalidation, activation denial, and trusted-channel incompatibility.
 
 ### Evaluation contract
 
@@ -96,6 +102,8 @@ live or adversarial verification
 
 None should be presented as a substitute for another.
 
+Where trusted configuration is required, verification must test both structural separation and authoritative delivery. Presence, provenance, and digest separation alone are not sufficient evidence that the receiving surface actually honors the channel for the intended semantic class.
+
 ### Verification subject
 
 Identify the relevant subject that verification binds, such as:
@@ -104,6 +112,7 @@ Identify the relevant subject that verification binds, such as:
 - executable/version;
 - invocation and confinement policy;
 - trusted-channel policy;
+- provider/harness configuration assumptions and precedence;
 - environment and working-directory policy;
 - runtime adapter / production path;
 - schema version;
@@ -128,6 +137,8 @@ operator input
 ```
 
 State how verification exercises that production-equivalent path rather than a safer parallel ceremony or test-only implementation.
+
+For provider-facing configuration, include any upstream provider or harness system context that can constrain, override, or contradict ToadAid-controlled channels. A blueprint must not model a provider surface as a blank slate when the production harness is not one.
 
 ### Independent verification
 
@@ -156,10 +167,11 @@ A future agent unfamiliar with the authoring conversation should be able to answ
 3. What may it read or affect?
 4. What must it never do?
 5. Which trust classes enter through which structural channels?
-6. Which exact production path carries consequential behavior?
-7. How will failure behave?
-8. How will success be proven at the typed, wiring, and live layers?
-9. What exact subject does the proof bind, and what invalidates it?
-10. Does this blueprint authorize activation?
+6. Which trusted channels are actually authoritative for which semantic classes, and what upstream configuration can conflict with them?
+7. Which exact production path carries consequential behavior?
+8. How will failure behave?
+9. How will success be proven at the typed, wiring, and live layers?
+10. What exact subject does the proof bind, and what invalidates it?
+11. Does this blueprint authorize activation?
 
 If those answers are unclear, the blueprint is incomplete.
