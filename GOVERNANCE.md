@@ -11,15 +11,20 @@ This is the central invariant of the ToadAid ecosystem.
 The following concepts must remain distinct:
 
 ```text
-creation        ≠ activation
-activation      ≠ authorization
-capability      ≠ authority
-request         ≠ authority
-proposal        ≠ mutation
-provider stop   ≠ ToadAid acceptance
-acceptance      ≠ task completion
-evidence        ≠ authority
-model claim     ≠ runtime truth
+creation                 ≠ activation
+activation               ≠ authorization
+capability               ≠ authority
+request                  ≠ authority
+proposal                 ≠ mutation
+provider stop            ≠ ToadAid acceptance
+acceptance               ≠ task completion
+evidence                 ≠ authority
+model claim              ≠ runtime truth
+typed assertion          ≠ evidence
+proof valid then         ≠ proof applicable now
+provenance label         ≠ structural trusted channel
+process success          ≠ provider success
+provider success         ≠ ToadAid workflow success
 ```
 
 A system component may propose, implement, test, or prove a capability. None of those actions grants authority to use it.
@@ -58,6 +63,62 @@ has no authority merely because it exists in source.
 
 Effective permissions must be established by trusted runtime or governance layers outside the code requesting those permissions.
 
+## Mechanical governance
+
+Doctrine should be implemented through mechanisms that make false assurance difficult to author.
+
+### Derived evidence
+
+Security-relevant evidence claims must derive from the observation or enforcement mechanism they describe.
+
+The intended path is:
+
+```text
+observation / enforcement
+        ↓
+canonical classifier
+        ↓
+grounded claim
+        ↓
+receipt or status projection
+```
+
+A developer-authored value plus a developer-authored evidence basis is not proof merely because both satisfy a type.
+
+### Verification applicability
+
+A verification binds a defined subject.
+
+If that subject changes, the earlier proof remains historical evidence but loses current applicability until an appropriate replacement proof succeeds.
+
+```text
+historical proof: preserved
+current applicability: invalidated
+replacement proof: required
+```
+
+### Trusted-channel separation
+
+Information with different trust semantics must travel through different structural channels.
+
+Trusted runtime configuration, operator input, conversation context, retrieved evidence, canonical memory, provider output, and authority decisions must not collapse into one undifferentiated text stream.
+
+A provenance label is useful, but it does not by itself establish a trusted channel.
+
+### Proof layers
+
+The following layers are complementary:
+
+```text
+typed law
+wiring proof
+live proof
+```
+
+Typed law constrains representable values. Wiring proof checks the production adapter and runtime path. Live proof checks the external process or real effect.
+
+None may impersonate another.
+
 ## Failure semantics
 
 Failure must not silently widen authority.
@@ -71,7 +132,11 @@ Valid outcomes include:
 - `tool_unavailable`;
 - `provider_failed`;
 - `authority_denied`;
-- `verification_failed`.
+- `verification_failed`;
+- `verification_invalidated`;
+- `replacement_required`;
+- `activation_denied`;
+- `operator_cancelled`.
 
 Invalid recovery includes silently:
 
@@ -82,7 +147,10 @@ Invalid recovery includes silently:
 - acquiring credentials;
 - enabling shell access;
 - bypassing approval;
-- treating provider completion as acceptance.
+- treating provider completion as acceptance;
+- transferring proof status to a changed subject;
+- moving trusted configuration into ordinary user input;
+- rewriting historical failure as success.
 
 A failed bounded run is preferable to a successful unauthorized one.
 
@@ -109,11 +177,17 @@ Meaningful approval boundaries should be understandable to the operator. Avoid a
 
 Human sovereignty should be strongest where effects are consequential or difficult to reverse.
 
+For authority-affecting activation, independent verification is required.
+
+If independent verification is unavailable, activation must remain denied rather than treating implementer self-report as sufficient.
+
 ## Evidence doctrine
 
-Runtime-observed state, deterministic tests, source inspection, structured tool results, provenance records, and independent verification are stronger evidence than provider self-report.
+Runtime-observed state, deterministic tests, source inspection, structured tool results, provenance records, wiring verification, adversarial evaluation, and independent verification are stronger evidence than provider self-report.
 
 A model saying "done" is not proof that the intended work is complete.
+
+A receipt that conforms to a schema is not necessarily truthful. Consequential claims should identify how they were derived and what subject they apply to.
 
 ## Provider neutrality
 
@@ -132,5 +206,8 @@ Any change that would:
 - remove an operator boundary;
 - make provider claims authoritative;
 - introduce automatic recursive activation;
+- collapse distinct trust channels;
+- transfer verification to a changed subject without replacement proof;
+- remove independent verification from an authority-affecting activation;
 
 requires explicit architectural review rather than routine implementation.
