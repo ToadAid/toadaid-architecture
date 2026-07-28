@@ -43,24 +43,32 @@ unverified
     ↓
 source_verified
     ↓
+wiring_verified
+    ↓
 live_verified
     ↓ subject changes
-invalidated
+verification_invalidated
     ↓
 replacement_required
     ↓ replacement proof
-live_verified
+source_verified / wiring_verified / live_verified as required
 ```
+
+`wiring_verified` means the production-equivalent adapter and boundary were verified for the bound subject. It does not imply that an external provider, network, signer, or real-world effect behaved successfully.
+
+Not every proof requires every layer. The evaluation contract must state which layer is necessary for the claim being made. A source-only doctrine change, for example, may not require a live provider proof. A consequential provider or signer boundary normally requires production wiring verification before a live proof can establish the full claim.
 
 Other truthful states may include:
 
 ```text
 verification_failed
 insufficient_evidence
-expired
+proof_expired
 revoked
 not_applicable
 ```
+
+Cross-ecosystem failure names use the canonical meanings in [`failure-outcome-taxonomy.md`](failure-outcome-taxonomy.md).
 
 ## Invalidation triggers
 
@@ -81,6 +89,8 @@ A verification must be reconsidered when a bound subject changes, including chan
 
 The invalidation engine should compare canonical subject identities rather than rely on hand-maintained prose.
 
+A change may invalidate only the proof layers whose subject includes that change. For example, a documentation-only edit need not invalidate a runtime confinement proof unless the bound subject or evaluation contract says it does. Conversely, a production adapter change must not inherit a prior `wiring_verified` or `live_verified` result merely because source types still compile.
+
 ## Historical preservation
 
 Invalidation must not delete or relabel the earlier proof.
@@ -90,11 +100,11 @@ The correct record is:
 ```text
 historical proof: preserved
 historical result: unchanged
-current applicability: invalidated
+current applicability: verification_invalidated
 replacement proof: required
 ```
 
-`invalidated` is distinct from `failed`.
+`verification_invalidated` is distinct from `verification_failed`.
 
 The earlier proof may remain completely true about the earlier subject.
 
@@ -106,6 +116,7 @@ A proof registry should be able to answer:
 
 ```text
 What subject was verified?
+Which proof layer was established?
 Which evidence established it?
 When was it verified?
 Is the proof applicable to the current subject?
@@ -122,6 +133,8 @@ A runtime claiming a proof binding must perform and record a comparison between:
 ```text
 expected proof subject identity
 actual current subject identity
+required proof layer
+available applicable proof layer
 ```
 
 Possible outcomes include:
@@ -131,7 +144,9 @@ bound
 not_bound
 proof_missing
 subject_changed
-proof_invalidated
+verification_invalidated
+proof_inapplicable
+proof_expired
 insufficient_evidence
 ```
 
@@ -145,7 +160,7 @@ Conceptually:
 
 ```text
 candidate
-  ∩ applicable verification
+  ∩ applicable required verification layers
   ∩ current capability projection
   ∩ explicit activation authorization
         ↓
@@ -155,7 +170,7 @@ activated bounded capability
 If applicable verification is unavailable:
 
 ```text
-activation denied
+activation_denied
 ```
 
 ## Production-path applicability
@@ -165,6 +180,8 @@ A ceremony or test proves only the path and policy it actually exercises.
 A safe standalone runner beside an unsafe product path does not prove the product path.
 
 When authority-relevant behavior crosses adapters, child processes, transports, signers, networks, or tool routers, the verification subject should include the production-equivalent path.
+
+`source_verified` must not be presented as `wiring_verified`, and `wiring_verified` must not be presented as `live_verified`.
 
 ## Replacement proof
 
@@ -176,6 +193,7 @@ The replacement proof should define:
 
 - the changed subject identity;
 - the reason replacement is required;
+- the proof layer or layers that must be re-established;
 - the exact new evidence budget;
 - retry and fallback limits;
 - acceptance and failure outcomes;
@@ -186,14 +204,16 @@ The replacement proof should define:
 Implementations of this contract should test:
 
 - unchanged subject remains bound;
-- each bound subject change invalidates applicability;
+- each bound subject change invalidates the applicable affected layer;
+- source verification cannot satisfy a wiring requirement;
+- wiring verification cannot satisfy a live requirement;
 - historical proof remains preserved;
 - invalidated does not serialize as failed;
 - stale narrative cannot restore applicability;
 - a hardcoded proof ID cannot satisfy a binding comparison;
-- production-path drift invalidates a ceremony-only proof;
-- activation fails closed when proof is missing or inapplicable.
+- production-path drift invalidates a ceremony-only or prior wiring proof;
+- activation fails closed when the required proof layer is missing or inapplicable.
 
 The governing sentence is:
 
-> **Verification is a relationship between evidence and a subject, not a permanent badge attached to a component.**
+> **Verification is a relationship between evidence, a proof layer, and a subject—not a permanent badge attached to a component.**

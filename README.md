@@ -27,11 +27,12 @@ The operating sequence is:
 
 Doctrine alone is not enough. Cross-ecosystem laws must be expressed through mechanisms that make false assurance difficult to author and easy to detect.
 
-The architecture therefore requires three additional mechanical contracts:
+The architecture therefore defines canonical mechanical contracts for:
 
 - **Derived evidence:** security-relevant claims must be derived from the observation or enforcement mechanism they describe.
-- **Verification applicability:** proof remains historical truth, but loses current applicability when its bound subject changes.
-- **Trusted-channel separation:** information with different trust semantics must travel through different structural channels.
+- **Verification applicability:** proof binds a subject and proof layer; historical proof may remain true while current applicability is invalidated.
+- **Trusted-channel separation:** information with different trust semantics must travel through different structural channels, and trusted framing must be authoritative for the semantic class it claims to establish.
+- **Failure outcomes:** failure, invalidation, incompatibility, refusal, and stop states use one shared cross-ecosystem vocabulary.
 
 The combined operating law is:
 
@@ -78,6 +79,16 @@ implementation
 
 Existing code is evidence of what exists. It is not automatically evidence of what the architecture intends.
 
+Within that hierarchy, each detailed mechanical contract is the canonical source for its own vocabulary and mechanism. Higher-level documents may summarize those laws, but should link rather than independently create a competing taxonomy or lifecycle.
+
+## Canonical state and projections
+
+A repository page, raw-content endpoint, generated index, cache, mirror, rendered receipt, or summary is a projection of state.
+
+For consequential current-state claims, bind the relevant canonical repository or source, branch/ref, commit or digest where available, and a freshness basis. If projections disagree, resolve the canonical source before reporting a confident finding.
+
+> **A projection of canonical state is not canonical state itself.**
+
 ## Repository structure
 
 ```text
@@ -97,6 +108,7 @@ toadaid-architecture/
 │   ├── capability-authority-boundary.md
 │   ├── derived-evidence-contract.md
 │   ├── evidence-activation-contract.md
+│   ├── failure-outcome-taxonomy.md
 │   ├── trusted-channel-separation-contract.md
 │   └── verification-applicability-contract.md
 ├── maps/

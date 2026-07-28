@@ -26,25 +26,13 @@ Model self-report may be useful context but should not be the only basis for con
 
 Security-relevant receipt fields should be derived from the observation, classifier, comparison, or enforcement mechanism they describe.
 
-The intended path is:
-
-```text
-observation / enforcement
-        ↓
-canonical classifier
-        ↓
-grounded claim
-        ↓
-receipt
-```
-
-A typed literal such as `observed` or `zero` is not itself evidence.
+A typed literal such as `observed` or `zero` is not itself evidence. A cached or rendered projection is not automatically evidence of current canonical state.
 
 When a fact is unknown or not observable, the receipt must preserve that uncertainty rather than serialize an optimistic zero.
 
 A proof-binding claim must record that an expected subject and actual subject were compared. A proof identifier copied into a receipt is not a performed binding.
 
-See [`derived-evidence-contract.md`](derived-evidence-contract.md).
+The canonical mechanism is defined in [`derived-evidence-contract.md`](derived-evidence-contract.md).
 
 ## Completion evidence
 
@@ -56,7 +44,7 @@ Completion evidence answers questions such as:
 - Did protected surfaces remain unchanged?
 - Did the production-equivalent wiring use the declared boundary?
 - Did the runtime remain within the declared authority ceiling?
-- Was the applicable verification bound to the subject currently running?
+- Was the applicable verification layer bound to the subject currently running?
 
 Completion evidence does **not** answer:
 
@@ -83,21 +71,19 @@ Live proof establishes what the real external process or effect did under the bo
 
 None may impersonate another.
 
+For lifecycle purposes, these layers may establish `source_verified`, `wiring_verified`, and `live_verified` respectively where the evaluation contract requires them.
+
+The canonical proof lifecycle is defined in [`verification-applicability-contract.md`](verification-applicability-contract.md).
+
 ## Verification applicability
 
-A verification applies only to the subject it actually bound.
+A verification applies only to the subject and proof layer it actually bound.
 
-Relevant subject identity may include source, executable/version, invocation policy, environment policy, trusted channels, production path, schema, capability manifest, authority surface, and evaluation-contract version.
+If a bound subject changes, preserve the historical result, mark current applicability `verification_invalidated`, and require the appropriate replacement proof.
 
-If a bound subject changes:
+`verification_invalidated` is not `verification_failed`.
 
-```text
-historical proof: preserved
-current applicability: invalidated
-replacement proof: required
-```
-
-Invalidated is not the same as failed.
+A source proof cannot satisfy a wiring requirement. A wiring proof cannot satisfy a live requirement.
 
 See [`verification-applicability-contract.md`](verification-applicability-contract.md).
 
@@ -110,7 +96,7 @@ Conceptually:
 ```text
 candidate
   ↓
-verification
+required applicable verification layers
   ↓
 verified candidate
   ║
@@ -125,7 +111,7 @@ At an authority-affecting activation boundary, verification must be current, app
 If applicable independent verification is unavailable:
 
 ```text
-activation denied
+activation_denied
 ```
 
 ## Provider completion
@@ -143,12 +129,14 @@ A successful OS process and a provider-reported success value may still produce 
 
 ## Failure
 
-If required evidence is unavailable, stale, invalidated, or inapplicable, the correct status is `insufficient_evidence`, `verification_invalidated`, `replacement_required`, or another truthful failure state—not optimistic completion.
+Use the canonical outcome meanings in [`failure-outcome-taxonomy.md`](failure-outcome-taxonomy.md).
+
+If required evidence is unavailable, stale, invalidated, inapplicable, or based on unsupported trusted framing, the correct result is the corresponding truthful fail-closed outcome such as `insufficient_evidence`, `verification_invalidated`, `proof_inapplicable`, `replacement_required`, or `unsupported_trusted_framing`—not optimistic completion.
 
 ## Receipts
 
 Receipts should distinguish what was observed, what was structurally enforced, what was requested, what was inferred, what was historical, and what was not observable whenever those distinctions matter to authority or safety.
 
-A receipt should also identify the subject and proof applicability relevant to consequential claims.
+A receipt should also identify the subject, proof layer, and proof applicability relevant to consequential claims.
 
 Historical receipts must not be silently rewritten when later evidence exposes an unsupported claim. Preserve the original receipt and append a corrective or superseding record.

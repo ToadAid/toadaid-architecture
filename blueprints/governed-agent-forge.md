@@ -60,12 +60,13 @@ accepted_for_build
 building
 candidate
 source_verified
+wiring_verified
 live_verified
 activation_pending
 active
 degraded
 paused
-invalidated
+verification_invalidated
 replacement_required
 revoked
 retired
@@ -73,7 +74,11 @@ retired
 
 Transitions that increase effective authority require appropriate governance.
 
-`invalidated` is distinct from `failed`. A prior proof may remain truthful for its earlier subject while no longer applying to the current one.
+`verification_invalidated` is distinct from `verification_failed`. A prior proof may remain truthful for its earlier subject while no longer applying to the current one.
+
+`wiring_verified` is a first-class state because a source contract may be correct while the production adapter bypasses it. Wiring verification does not imply live provider or external-effect success.
+
+The detailed verification lifecycle is owned by [`../contracts/verification-applicability-contract.md`](../contracts/verification-applicability-contract.md).
 
 ## Failure and invalidation paths
 
@@ -85,16 +90,22 @@ Conceptually:
 candidate
   ├─ insufficient_evidence → blocked
   ├─ verification_failed → needs_revision / retired
-  └─ live_verified
-        ├─ subject_changed → invalidated → replacement_required
+  └─ source_verified
+        ↓
+     wiring_verified
+        ↓
+     live_verified
+        ├─ subject_changed → verification_invalidated → replacement_required
         ├─ activation_denied → paused / candidate
         └─ active
               ├─ degraded → paused
-              ├─ authority_revoked → revoked
+              ├─ authority revoked → revoked
               └─ retired
 ```
 
-Valid transitions also include operator cancellation, provider failure, tool unavailability, and refusal.
+Valid transitions also include `operator_cancelled`, `provider_failed`, `provider_incompatible`, `tool_unavailable`, `unsupported_trusted_framing`, `unknown_channel_precedence`, and `refused` where applicable.
+
+The canonical meanings of these outcomes are defined in [`../contracts/failure-outcome-taxonomy.md`](../contracts/failure-outcome-taxonomy.md). This blueprint should not redefine competing synonyms.
 
 Failure must never silently widen authority, add retries, switch providers, broaden workspace scope, or transfer proof to a changed subject.
 
@@ -108,7 +119,7 @@ Before build:
 - explicit denial manifest;
 - threat model;
 - memory/provenance model;
-- trusted-channel map;
+- trusted-channel map including channel authority and precedence;
 - evaluation contract;
 - verification-subject definition;
 - invalidation triggers;
@@ -122,7 +133,7 @@ During build:
 - production-wiring verification;
 - provider-neutral evidence;
 - authority-relevant receipts;
-- proof-subject identities and applicability results.
+- proof-subject identities, proof layers, and applicability results.
 
 Before activation:
 
@@ -176,21 +187,13 @@ Neither decision implies the other.
 
 ## Trusted-channel separation
 
-The forge must preserve structural separation between:
+The canonical channel semantics are defined by [`../contracts/trusted-channel-separation-contract.md`](../contracts/trusted-channel-separation-contract.md).
 
-```text
-runtime configuration
-operator / task input
-conversation context
-retrieved evidence
-canonical memory
-provider output
-authority decisions
-```
+The forge must preserve structural separation between runtime configuration, operator/task input, conversation context, retrieved evidence, canonical memory, provider output, and authority decisions.
 
-A provenance label in one undifferentiated prompt is not sufficient.
+A provenance label in one undifferentiated prompt is not sufficient. A separate channel is also not sufficient unless the receiving surface makes that channel authoritative for the semantic class it is intended to establish.
 
-The blueprint must define who can write and read each channel, the transformations allowed between them, and how the production path preserves those distinctions.
+Blueprints must therefore identify provider-, harness-, host-, or transport-owned controlling configuration, precedence rules, and fail-closed behavior when authoritative delivery is unsupported or unknown.
 
 ## Verification layers
 
@@ -232,52 +235,25 @@ A live provider result, runtime observation, or external action receipt should n
 
 No proof layer may impersonate another.
 
+The lifecycle and applicability rules for these layers are canonical in [`../contracts/verification-applicability-contract.md`](../contracts/verification-applicability-contract.md).
+
 ## Derived evidence
 
 Authority-relevant receipt fields must derive from canonical observations, classifiers, enforcement mechanisms, and performed comparisons.
 
-The forge should prefer:
+The canonical mechanism is defined by [`../contracts/derived-evidence-contract.md`](../contracts/derived-evidence-contract.md).
 
-```text
-observation
-→ classifier
-→ grounded claim constructor
-→ receipt
-```
-
-over independently authored values and evidence-basis labels.
-
-A schema-conformant receipt may still be false. The forge must test contradiction refusal and proof-binding comparisons.
+In particular, a schema-conformant receipt may still be false, and a cached or rendered projection of canonical state may be stale. The forge must test contradiction refusal, proof-binding comparisons, and freshness or revision binding where current-state claims depend on them.
 
 ## Verification applicability and invalidation
 
-A verification binds a defined subject, which may include:
+A verification binds a defined subject, including the proof layer and the production path relevant to the claim.
 
-```text
-source identity
-executable/version
-invocation policy
-trusted-channel policy
-environment policy
-working-directory policy
-runtime adapter / production path
-schema version
-capability manifest
-authority surface
-evaluation-contract version
-```
-
-When a bound subject changes:
-
-```text
-historical proof: preserved
-current applicability: invalidated
-replacement proof: required
-```
-
-The prior proof is not automatically wrong. It is not transferable to the changed subject.
+When a bound subject changes, preserve historical proof, mark current applicability `verification_invalidated`, and require the appropriate replacement proof. Do not transfer `source_verified`, `wiring_verified`, or `live_verified` across a changed subject merely because another layer remains valid.
 
 Current proof status should be canonical data, not hand-maintained narrative.
+
+See [`../contracts/verification-applicability-contract.md`](../contracts/verification-applicability-contract.md) for the canonical lifecycle.
 
 ## Independent verification
 
@@ -288,7 +264,7 @@ For authority-affecting activation, independent verification is required.
 If independent verification is unavailable:
 
 ```text
-activation denied
+activation_denied
 ```
 
 The blueprint author may define intended acceptance invariants, but should not be the sole reporter that the implementation satisfied them.
@@ -302,7 +278,9 @@ For higher-risk specialists, include adversarial cases such as:
 - false capability claims;
 - poisoned context;
 - trusted-channel collapse;
+- non-authoritative trusted-channel delivery;
 - stale or inapplicable proof;
+- stale canonical-state projection;
 - unavailable-tool behavior;
 - provider fallback behavior;
 - retry-budget exhaustion;
