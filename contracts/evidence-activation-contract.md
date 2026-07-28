@@ -15,11 +15,36 @@ Useful evidence may include:
 - structured MCP/tool results;
 - provenance records;
 - sanitized receipts;
+- production wiring verification;
 - independent provider review;
 - adversarial evaluation results;
 - Git/GitHub state.
 
 Model self-report may be useful context but should not be the only basis for consequential claims that can be observed independently.
+
+## Derived evidence
+
+Security-relevant receipt fields should be derived from the observation, classifier, comparison, or enforcement mechanism they describe.
+
+The intended path is:
+
+```text
+observation / enforcement
+        ↓
+canonical classifier
+        ↓
+grounded claim
+        ↓
+receipt
+```
+
+A typed literal such as `observed` or `zero` is not itself evidence.
+
+When a fact is unknown or not observable, the receipt must preserve that uncertainty rather than serialize an optimistic zero.
+
+A proof-binding claim must record that an expected subject and actual subject were compared. A proof identifier copied into a receipt is not a performed binding.
+
+See [`derived-evidence-contract.md`](derived-evidence-contract.md).
 
 ## Completion evidence
 
@@ -29,7 +54,9 @@ Completion evidence answers questions such as:
 - Did the declared tests run?
 - Did they pass?
 - Did protected surfaces remain unchanged?
+- Did the production-equivalent wiring use the declared boundary?
 - Did the runtime remain within the declared authority ceiling?
+- Was the applicable verification bound to the subject currently running?
 
 Completion evidence does **not** answer:
 
@@ -37,6 +64,42 @@ Completion evidence does **not** answer:
 - Should this specialist receive broader authority?
 - Should a wallet action be signed?
 - Should content be published?
+
+## Proof layers
+
+Where consequential behavior crosses a real runtime boundary, verification should distinguish:
+
+```text
+typed / structural proof
+wiring proof
+live / adversarial proof
+```
+
+Typed proof constrains source and schemas.
+
+Wiring proof establishes what the production adapter actually passes through arguments, environment, context, transport, tool routing, or signer boundaries.
+
+Live proof establishes what the real external process or effect did under the bounded proof conditions.
+
+None may impersonate another.
+
+## Verification applicability
+
+A verification applies only to the subject it actually bound.
+
+Relevant subject identity may include source, executable/version, invocation policy, environment policy, trusted channels, production path, schema, capability manifest, authority surface, and evaluation-contract version.
+
+If a bound subject changes:
+
+```text
+historical proof: preserved
+current applicability: invalidated
+replacement proof: required
+```
+
+Invalidated is not the same as failed.
+
+See [`verification-applicability-contract.md`](verification-applicability-contract.md).
 
 ## Activation
 
@@ -57,6 +120,14 @@ verified candidate
 activated with explicit effective capabilities
 ```
 
+At an authority-affecting activation boundary, verification must be current, applicable to the production subject, and independently inspected.
+
+If applicable independent verification is unavailable:
+
+```text
+activation denied
+```
+
 ## Provider completion
 
 A provider terminal event or `end_turn` is evidence about provider session state. It is not automatically evidence of:
@@ -64,13 +135,20 @@ A provider terminal event or `end_turn` is evidence about provider session state
 - ToadAid acceptance;
 - ToadAid task completion;
 - successful verification;
+- conversational answer completeness;
 - authority grant;
 - activation.
 
+A successful OS process and a provider-reported success value may still produce an incomplete or failed ToadAid turn.
+
 ## Failure
 
-If required evidence is unavailable, the correct status is `insufficient_evidence` or another truthful failure state, not optimistic completion.
+If required evidence is unavailable, stale, invalidated, or inapplicable, the correct status is `insufficient_evidence`, `verification_invalidated`, `replacement_required`, or another truthful failure state—not optimistic completion.
 
 ## Receipts
 
-Receipts should distinguish what was observed, what was structurally enforced, what was requested, what was inferred, and what was not observable whenever those distinctions matter to authority or safety.
+Receipts should distinguish what was observed, what was structurally enforced, what was requested, what was inferred, what was historical, and what was not observable whenever those distinctions matter to authority or safety.
+
+A receipt should also identify the subject and proof applicability relevant to consequential claims.
+
+Historical receipts must not be silently rewritten when later evidence exposes an unsupported claim. Preserve the original receipt and append a corrective or superseding record.
