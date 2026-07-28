@@ -23,6 +23,7 @@ model claim              ≠ runtime truth
 typed assertion          ≠ evidence
 proof valid then         ≠ proof applicable now
 provenance label         ≠ structural trusted channel
+present trusted channel  ≠ authoritative trusted channel
 process success          ≠ provider success
 provider success         ≠ ToadAid workflow success
 ```
@@ -67,76 +68,62 @@ Effective permissions must be established by trusted runtime or governance layer
 
 Doctrine should be implemented through mechanisms that make false assurance difficult to author.
 
-### Derived evidence
+The canonical mechanical contracts are:
 
-Security-relevant evidence claims must derive from the observation or enforcement mechanism they describe.
+- [`contracts/derived-evidence-contract.md`](contracts/derived-evidence-contract.md) — consequential evidence claims derive from canonical observations or enforcement mechanisms rather than authored answers;
+- [`contracts/verification-applicability-contract.md`](contracts/verification-applicability-contract.md) — verification binds a defined subject and loses current applicability when that subject changes;
+- [`contracts/trusted-channel-separation-contract.md`](contracts/trusted-channel-separation-contract.md) — different trust semantics require structurally distinct channels, and trusted framing must be authoritative for the semantic class it claims to establish;
+- [`contracts/failure-outcome-taxonomy.md`](contracts/failure-outcome-taxonomy.md) — cross-ecosystem failure, invalidation, incompatibility, and stop-state names have one canonical meaning.
 
-The intended path is:
-
-```text
-observation / enforcement
-        ↓
-canonical classifier
-        ↓
-grounded claim
-        ↓
-receipt or status projection
-```
-
-A developer-authored value plus a developer-authored evidence basis is not proof merely because both satisfy a type.
-
-### Verification applicability
-
-A verification binds a defined subject.
-
-If that subject changes, the earlier proof remains historical evidence but loses current applicability until an appropriate replacement proof succeeds.
+Three complementary proof layers remain distinct:
 
 ```text
-historical proof: preserved
-current applicability: invalidated
-replacement proof: required
+typed / structural proof
+production wiring proof
+live / adversarial proof
 ```
 
-### Trusted-channel separation
+Typed law constrains representable values. Wiring proof checks the production adapter and runtime path. Live proof checks the external process or real effect. None may impersonate another.
 
-Information with different trust semantics must travel through different structural channels.
+## Normative ownership
 
-Trusted runtime configuration, operator input, conversation context, retrieved evidence, canonical memory, provider output, and authority decisions must not collapse into one undifferentiated text stream.
+`GOVERNANCE.md` owns ecosystem-level doctrine.
 
-A provenance label is useful, but it does not by itself establish a trusted channel.
+Shared contracts own the detailed mechanical semantics within that doctrine. Blueprints, READMEs, maps, reports, and implementation repositories may summarize those laws, but should link to the canonical contract rather than independently redefine a competing taxonomy or lifecycle.
 
-### Proof layers
-
-The following layers are complementary:
-
-```text
-typed law
-wiring proof
-live proof
-```
-
-Typed law constrains representable values. Wiring proof checks the production adapter and runtime path. Live proof checks the external process or real effect.
-
-None may impersonate another.
+If a lower-level contract conflicts with this governance doctrine, surface the conflict for deliberate architectural review. Do not silently choose whichever wording is more convenient.
 
 ## Failure semantics
 
 Failure must not silently widen authority.
 
-Valid outcomes include:
+The canonical cross-ecosystem outcome vocabulary is defined in [`contracts/failure-outcome-taxonomy.md`](contracts/failure-outcome-taxonomy.md).
 
-- `blocked`;
-- `refused`;
-- `needs_revision`;
-- `insufficient_evidence`;
-- `tool_unavailable`;
-- `provider_failed`;
-- `authority_denied`;
-- `verification_failed`;
-- `verification_invalidated`;
-- `replacement_required`;
-- `activation_denied`;
-- `operator_cancelled`.
+Examples include:
+
+```text
+blocked
+refused
+needs_revision
+insufficient_evidence
+tool_unavailable
+provider_failed
+provider_incompatible
+unsupported_trusted_framing
+unknown_channel_precedence
+authority_denied
+verification_failed
+verification_invalidated
+proof_inapplicable
+proof_expired
+replacement_required
+activation_denied
+operator_cancelled
+paused
+degraded
+revoked
+retired
+```
 
 Invalid recovery includes silently:
 
@@ -150,6 +137,7 @@ Invalid recovery includes silently:
 - treating provider completion as acceptance;
 - transferring proof status to a changed subject;
 - moving trusted configuration into ordinary user input;
+- treating a present but non-authoritative channel as successful trusted framing;
 - rewriting historical failure as success.
 
 A failed bounded run is preferable to a successful unauthorized one.
@@ -189,6 +177,8 @@ A model saying "done" is not proof that the intended work is complete.
 
 A receipt that conforms to a schema is not necessarily truthful. Consequential claims should identify how they were derived and what subject they apply to.
 
+A cached, rendered, mirrored, raw, indexed, or otherwise projected view of canonical state proves what was retrieved from that projection. It does not by itself prove that the projection is current. Consequential claims about repository or governance state should bind an explicit source, ref or revision, and freshness basis where those distinctions matter.
+
 ## Provider neutrality
 
 No provider is sovereign.
@@ -207,6 +197,7 @@ Any change that would:
 - make provider claims authoritative;
 - introduce automatic recursive activation;
 - collapse distinct trust channels;
+- treat a non-authoritative channel as authoritative trusted framing;
 - transfer verification to a changed subject without replacement proof;
 - remove independent verification from an authority-affecting activation;
 
