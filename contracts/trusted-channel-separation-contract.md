@@ -14,6 +14,10 @@ This contract defines the structural separation required between those channels.
 
 A provenance label inside one undifferentiated prompt is not equivalent to trusted-channel separation.
 
+A structurally separate channel is also not sufficient merely because the runtime can write to it. For a channel to establish trusted configuration for a semantic class, the receiving provider or runtime must treat that channel as authoritative relative to conflicting provider-owned or harness-owned configuration.
+
+If an upstream provider surface injects a higher-priority or otherwise controlling identity, capability description, tool manifest, or policy that conflicts with ToadAid's intended trusted configuration, then the ToadAid channel is not authoritative for that semantic class. The system must mark the framing unsupported, choose a compatible provider surface, or move the user-facing interpretation outside that provider surface. It must not claim successful trusted configuration merely because the channel was separate and uncontaminated.
+
 ## Required channel classes
 
 A system should distinguish the channel classes relevant to its runtime, including:
@@ -42,7 +46,32 @@ Trusted runtime configuration may establish bounded facts such as:
 
 It must not be writable through ordinary operator messages, retrieved documents, provider output, or conversation history.
 
-Trusted configuration can establish runtime framing. It does not establish that every framed claim is externally true.
+Trusted configuration can establish runtime framing only where the receiving surface gives that channel sufficient authority for the intended semantic class. It does not establish that every framed claim is externally true, and it must not be treated as authoritative when a provider-owned harness supplies conflicting higher-priority framing that ToadAid cannot override or independently reconcile.
+
+## Channel authority and precedence
+
+A channel map must describe not only separation, but also **authority and precedence**.
+
+For each trusted channel, identify:
+
+```text
+who controls the channel
+what semantic classes it may establish
+what upstream configuration the receiver already has
+whether conflicting upstream configuration can override it
+how precedence is verified
+what happens when precedence is unknown or contradictory
+```
+
+A channel is authoritative for a semantic class only when the production receiver contract and verification establish that the channel can actually govern that class.
+
+Examples:
+
+- a runtime-owned capability projection may be authoritative for NOMI's capability truth even when a provider self-describes broader native capabilities, if the product renders NOMI capability truth outside the provider's self-description and the runtime enforces the denial;
+- a provider-specific appended system prompt is not authoritative for user-facing agent identity if the provider harness has an earlier controlling system identity that the model continues to treat as its own;
+- a capability manifest delivered through a trusted field is still only a request if the runtime authority layer, rather than that field, determines effective capability.
+
+When authoritative delivery cannot be established, the safe outcome is `unsupported_trusted_framing`, `insufficient_evidence`, provider incompatibility, or another truthful fail-closed state—not successful configuration.
 
 ## Operator and task input
 
@@ -111,6 +140,8 @@ Provider output is reasoning output, not runtime configuration, authority, proof
 
 A provider may propose a capability call, memory candidate, finding interpretation, or action. The trusted runtime decides how that proposal is classified and whether any effect is permitted.
 
+Provider self-description is also not runtime capability truth. However, if the provider's own controlling configuration materially determines what identity or capability framing it will emit, ToadAid must account for that behavior in the channel-authority model rather than pretending a lower-precedence trusted field overrode it.
+
 ## Authority decisions
 
 Authority decisions must be established through trusted governance and runtime state outside provider and ordinary user content.
@@ -128,7 +159,8 @@ Examples include:
 - separate memory and conversation stores;
 - authority state injected from trusted runtime rather than generated prose;
 - evidence adapters that cannot write configuration;
-- provider adapters that cannot independently discover repository or workspace context.
+- provider adapters that cannot independently discover repository or workspace context;
+- explicit modeling of provider-owned or harness-owned configuration that precedes or constrains ToadAid-controlled channels.
 
 ## Forbidden collapse
 
@@ -160,6 +192,14 @@ capability manifest delivered as task text
 provider treats requested capability as granted
 ```
 
+```text
+separate trusted channel exists
+        ↓
+provider-owned higher-priority configuration conflicts
+        ↓
+runtime still claims trusted framing succeeded
+```
+
 ## Channel crossing
 
 Any movement between trust classes should define:
@@ -184,9 +224,12 @@ A substantial blueprint should include a channel map showing:
 - which channel each input uses;
 - who can write each channel;
 - which components can read it;
+- which semantic classes each trusted channel is authoritative for;
+- provider- or harness-owned configuration that can conflict with it;
+- precedence and conflict-resolution rules;
 - permitted transformations;
 - forbidden crossings;
-- how channel integrity is tested at the production path.
+- how channel integrity and channel authority are tested at the production path.
 
 ## Required verification
 
@@ -199,8 +242,12 @@ Implementations of this contract should test:
 - runtime identity is absent from ordinary task input when a trusted configuration channel exists;
 - unknown provenance and unknown channels fail closed;
 - the production adapter preserves the intended channel separation;
-- channel-specific digests change independently where appropriate.
+- channel-specific digests change independently where appropriate;
+- trusted configuration is actually authoritative for the semantic class it claims to establish;
+- conflicting provider- or harness-owned higher-priority configuration is detected rather than ignored;
+- a present but non-authoritative trusted channel cannot satisfy compliance;
+- unknown channel precedence fails closed instead of being reported as successful trusted framing.
 
 The governing sentence is:
 
-> **Trust is not a label attached to text. Trust is a property of the path by which the text entered the system.**
+> **Trust is not a label attached to text. Trust is a property of the path by which the text entered the system—and of whether that path is authoritative for the claim it is meant to establish.**
