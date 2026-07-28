@@ -110,6 +110,8 @@ tool-attempt classifier
 
 All projections should derive from the same classifier result.
 
+This rule also applies to shared architecture vocabularies. When a canonical contract owns a taxonomy or lifecycle, higher-level summaries should link to that contract instead of inventing a second independently maintained definition.
+
 ## Contradiction refusal
 
 A grounded claim constructor should fail closed when:
@@ -142,11 +144,54 @@ bound_to: cut-19-r6
 
 is not itself evidence of a binding.
 
+## Canonical state and projections
+
+A rendered, cached, mirrored, indexed, raw, summarized, or API-projected view of canonical state is a projection.
+
+A projection proves what was returned by that projection at the time and under the addressing information actually used. It does not automatically prove that the projection is current, complete, or bound to the canonical revision being discussed.
+
+For consequential claims about repository, governance, proof, deployment, or authority state, evidence should bind the relevant subset of:
+
+```text
+canonical source or repository
+branch / ref / object identity
+commit, digest, or revision where available
+retrieval time or freshness basis
+projection mechanism
+comparison against expected current state where required
+```
+
+The intended pattern is:
+
+```text
+canonical source identity
+        ↓
+explicit ref / revision
+        ↓
+direct current read or freshness check
+        ↓
+derived claim
+```
+
+The following is insufficient for a consequential current-state claim:
+
+```text
+cached or projected document
+        ↓
+assume current
+        ↓
+confident finding
+```
+
+When two projections disagree, do not choose the convenient one. Resolve the canonical source identity and freshness before asserting current truth.
+
 ## Projection rule
 
-Reports, shutdown summaries, Telegram messages, and human-readable receipts are projections of canonical evidence.
+Reports, shutdown summaries, Telegram messages, dashboards, raw-content endpoints, generated indexes, and human-readable receipts are projections of canonical evidence or state.
 
 A rendering defect should be repaired by re-rendering the preserved evidence where possible. It should not trigger another provider or external action merely to regenerate prose.
+
+A stale projection should be refreshed or rebound to the intended canonical revision. It should not be treated as evidence that canonical state is missing or contradictory until the source/ref/freshness question is resolved.
 
 ## Historical correction
 
@@ -172,7 +217,9 @@ Implementations of this contract should include tests that:
 - prove unknown facts cannot become observed zeros;
 - prove a proof-binding claim fails when no comparison occurred;
 - prove separate renderers derive from the same canonical observation;
-- prove stale narrative cannot override canonical proof state.
+- prove stale narrative cannot override canonical proof state;
+- prove a stale or mismatched projection cannot satisfy a current-state claim without a freshness or revision check;
+- prove conflicting projections trigger canonical-source reconciliation rather than optimistic selection.
 
 ## Relationship to authority
 
@@ -182,4 +229,4 @@ Accurate evidence allows governance to decide from truthful state. It does not c
 
 The governing sentence is:
 
-> **Doctrine states what evidence should mean. Derivation prevents an implementation from authoring the answer.**
+> **Doctrine states what evidence should mean. Derivation prevents an implementation from authoring the answer. A projection of canonical state is not canonical state itself.**
