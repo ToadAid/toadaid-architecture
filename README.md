@@ -36,6 +36,7 @@ The architecture therefore defines canonical mechanical contracts for:
 - **Scope sovereignty:** principal and personal/shared/project/public scope vocabulary, membership, audience, and cross-scope release remain governed architectural boundaries.
 - **Agent identity and specialist admission:** agent identity evidence, principal/scope bindings, and specialist eligibility remain distinct from authority.
 - **Agent messaging and delivery:** sender/recipient relationships, source/destination scopes, provenance, and delivery remain distinct from consequence authorization.
+- **Attestation and evidence exchange:** scoped claims, provenance, verification, disclosure, validity, and exchange remain evidence rather than authority.
 
 The combined operating law is:
 
@@ -115,6 +116,7 @@ toadaid-architecture/
 │   ├── scope-sovereignty-contract.md
 │   ├── agent-identity-and-specialist-admission-contract.md
 │   ├── agent-to-agent-messaging-and-delivery-contract.md
+│   ├── attestation-and-evidence-exchange-contract.md
 │   ├── trusted-channel-separation-contract.md
 │   └── verification-applicability-contract.md
 ├── maps/
