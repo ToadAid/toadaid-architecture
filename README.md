@@ -35,6 +35,7 @@ The architecture therefore defines canonical mechanical contracts for:
 - **Failure outcomes:** failure, invalidation, incompatibility, refusal, and stop states use one shared cross-ecosystem vocabulary.
 - **Scope sovereignty:** principal and personal/shared/project/public scope vocabulary, membership, audience, and cross-scope release remain governed architectural boundaries.
 - **Agent identity and specialist admission:** agent identity evidence, principal/scope bindings, and specialist eligibility remain distinct from authority.
+- **Agent messaging and delivery:** sender/recipient relationships, source/destination scopes, provenance, and delivery remain distinct from consequence authorization.
 
 The combined operating law is:
 
@@ -113,6 +114,7 @@ toadaid-architecture/
 │   ├── failure-outcome-taxonomy.md
 │   ├── scope-sovereignty-contract.md
 │   ├── agent-identity-and-specialist-admission-contract.md
+│   ├── agent-to-agent-messaging-and-delivery-contract.md
 │   ├── trusted-channel-separation-contract.md
 │   └── verification-applicability-contract.md
 ├── maps/

@@ -63,6 +63,10 @@ membership / audience / cross-scope release / scope sovereignty
 agent identity / AgentId / principal-agent binding /
 specialist admission / remote-agent admission / admission revocation
   → contracts/agent-identity-and-specialist-admission-contract.md
+
+agent-to-agent messaging / MessageId / sender-recipient binding /
+source/destination scope / delivery / message provenance / replay
+  → contracts/agent-to-agent-messaging-and-delivery-contract.md
 ```
 
 Higher-level documents may summarize these rules. If summaries diverge, do not silently choose one; reconcile against `GOVERNANCE.md` and the canonical contract.
