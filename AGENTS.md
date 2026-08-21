@@ -67,6 +67,11 @@ specialist admission / remote-agent admission / admission revocation
 agent-to-agent messaging / MessageId / sender-recipient binding /
 source/destination scope / delivery / message provenance / replay
   → contracts/agent-to-agent-messaging-and-delivery-contract.md
+
+attestation / AttestationId / claim / issuer-subject binding /
+evidence basis / verification / revocation / supersession /
+attestation exchange
+  → contracts/attestation-and-evidence-exchange-contract.md
 ```
 
 Higher-level documents may summarize these rules. If summaries diverge, do not silently choose one; reconcile against `GOVERNANCE.md` and the canonical contract.
