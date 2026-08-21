@@ -55,6 +55,10 @@ trusted channels / authority / precedence
 
 failure / invalidation / incompatibility outcomes
   → contracts/failure-outcome-taxonomy.md
+
+principal / personal/shared/project/public scope /
+membership / audience / cross-scope release / scope sovereignty
+  → contracts/scope-sovereignty-contract.md
 ```
 
 Higher-level documents may summarize these rules. If summaries diverge, do not silently choose one; reconcile against `GOVERNANCE.md` and the canonical contract.
