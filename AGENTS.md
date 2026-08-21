@@ -59,6 +59,10 @@ failure / invalidation / incompatibility outcomes
 principal / personal/shared/project/public scope /
 membership / audience / cross-scope release / scope sovereignty
   → contracts/scope-sovereignty-contract.md
+
+agent identity / AgentId / principal-agent binding /
+specialist admission / remote-agent admission / admission revocation
+  → contracts/agent-identity-and-specialist-admission-contract.md
 ```
 
 Higher-level documents may summarize these rules. If summaries diverge, do not silently choose one; reconcile against `GOVERNANCE.md` and the canonical contract.
