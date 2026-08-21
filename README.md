@@ -34,6 +34,7 @@ The architecture therefore defines canonical mechanical contracts for:
 - **Trusted-channel separation:** information with different trust semantics must travel through different structural channels, and trusted framing must be authoritative for the semantic class it claims to establish.
 - **Failure outcomes:** failure, invalidation, incompatibility, refusal, and stop states use one shared cross-ecosystem vocabulary.
 - **Scope sovereignty:** principal and personal/shared/project/public scope vocabulary, membership, audience, and cross-scope release remain governed architectural boundaries.
+- **Agent identity and specialist admission:** agent identity evidence, principal/scope bindings, and specialist eligibility remain distinct from authority.
 
 The combined operating law is:
 
@@ -111,6 +112,7 @@ toadaid-architecture/
 │   ├── evidence-activation-contract.md
 │   ├── failure-outcome-taxonomy.md
 │   ├── scope-sovereignty-contract.md
+│   ├── agent-identity-and-specialist-admission-contract.md
 │   ├── trusted-channel-separation-contract.md
 │   └── verification-applicability-contract.md
 ├── maps/
