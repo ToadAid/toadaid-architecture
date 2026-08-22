@@ -225,6 +225,10 @@ A specialist should primarily provide its identity, purpose, domain capability m
 
 Confinement, trusted channels, proof applicability, receipt truth, and activation machinery should increasingly be inherited from shared substrate.
 
+## Community Agent Fabric direction
+
+Future personal, shared/community, project, specialist, and remote agents may collaborate through explicit scopes, admission, governed messaging, evidence and attestation exchange, and separately governed consequences. The [`Community Agent Fabric Blueprint`](blueprints/community-agent-fabric.md) composes those boundaries without creating shared private memory, ambient authority, or an autonomous-agent swarm.
+
 ## Design objective
 
 The ecosystem should survive changes in individual model providers, interfaces, and repositories.

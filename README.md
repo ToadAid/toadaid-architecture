@@ -48,6 +48,8 @@ Live evidence proves the subject behaved.
 Invalidation prevents an old proof from governing a changed system.
 ```
 
+The [`Community Agent Fabric Blueprint`](blueprints/community-agent-fabric.md) describes future cross-scope collaboration built on canonical scope, agent admission, messaging, and attestation contracts without granting runtime authority.
+
 ## Mandatory read order for agents
 
 Before planning ecosystem-level work, read:
@@ -104,6 +106,7 @@ toadaid-architecture/
 ├── ROADMAP.md
 ├── LICENSE
 ├── blueprints/
+│   ├── community-agent-fabric.md
 │   ├── governed-ecosystem-architecture.md
 │   └── governed-agent-forge.md
 ├── contracts/
