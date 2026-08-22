@@ -37,6 +37,7 @@ The architecture therefore defines canonical mechanical contracts for:
 - **Agent identity and specialist admission:** agent identity evidence, principal/scope bindings, and specialist eligibility remain distinct from authority.
 - **Agent messaging and delivery:** sender/recipient relationships, source/destination scopes, provenance, and delivery remain distinct from consequence authorization.
 - **Attestation and evidence exchange:** scoped claims, provenance, verification, disclosure, validity, and exchange remain evidence rather than authority.
+- **Delegated authority and capability grants:** bounded delegation, grantee/capability/target binding, expiry, consumption, revocation, and restart behavior remain distinct from sovereignty and identity.
 
 The combined operating law is:
 
@@ -113,6 +114,7 @@ toadaid-architecture/
 │   ├── blueprint-contract.md
 │   ├── build-list-contract.md
 │   ├── capability-authority-boundary.md
+│   ├── delegated-authority-and-capability-grant-contract.md
 │   ├── derived-evidence-contract.md
 │   ├── evidence-activation-contract.md
 │   ├── failure-outcome-taxonomy.md
