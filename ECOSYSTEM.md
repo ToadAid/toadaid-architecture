@@ -229,6 +229,24 @@ Confinement, trusted channels, proof applicability, receipt truth, and activatio
 
 Future personal, shared/community, project, specialist, and remote agents may collaborate through explicit scopes, admission, governed messaging, evidence and attestation exchange, and separately governed consequences. The [`Community Agent Fabric Blueprint`](blueprints/community-agent-fabric.md) composes those boundaries without creating shared private memory, ambient authority, or an autonomous-agent swarm.
 
+## Governed runtime responsibility direction
+
+The [`Governed Runtime Responsibility and Component Allocation`](blueprints/governed-runtime-component-allocation.md) blueprint assigns logical runtime responsibilities without making process placement or storage ownership a sovereignty root:
+
+| Component | Architectural responsibility |
+|---|---|
+| Reasoning clients | Interchangeable intelligence, planning, and proposals |
+| Mirror Core | Current governance evaluation kernel |
+| Mirror Desktop Bridge | Local governed consequence edge |
+| Living Agent | Continuity and scoped knowledge |
+| ToadAid Coder | Repository and code specialist |
+| ToadAid Trader | Market analysis and trade-intent specialist |
+| ToadAid Zora Agent | Isolated high-consequence specialist |
+| ToadAid MCP | Protocol and transport capability fabric |
+| Community/project runtime | Collaborative composition under explicit scope |
+
+Intelligence may propose, governance decides, and execution remains bounded. This direction does not activate any runtime or turn ToadAid into an autonomous-agent swarm.
+
 ## Design objective
 
 The ecosystem should survive changes in individual model providers, interfaces, and repositories.
