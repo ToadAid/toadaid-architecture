@@ -53,6 +53,48 @@ This blueprint composes, and does not redefine:
 
 The [Governed Ecosystem Architecture](governed-ecosystem-architecture.md) and [Community Agent Fabric Blueprint](community-agent-fabric.md) provide composition context. This blueprint allocates runtime responsibilities; it does not become a second owner for `PrincipalId`, `ScopeId`, `AgentId`, `GrantId`, membership, admission, Release, capability, authority, messages, attestations, receipts, or failure outcomes.
 
+## Relationship to foundational Mirror terminology
+
+`Mirror` in the foundational Governed Ecosystem Architecture is a broad conceptual ecosystem role and doctrine term. `Mirror Core` in this blueprint is a narrower concrete runtime responsibility. They are not aliases:
+
+```text
+Mirror
+  foundational conceptual role
+  !=
+Mirror Core
+  runtime governance component
+```
+
+This blueprint refines runtime allocation beneath the foundational doctrine; it does not make that doctrine obsolete. Under this allocation:
+
+```text
+reasoning and planning
+  → interchangeable reasoning clients and specialists
+
+current consequence governance
+  → Mirror Core
+
+continuity and scoped knowledge
+  → Living Agent and scoped continuity services
+
+local bounded consequences
+  → Mirror Desktop Bridge and bounded execution adapters
+```
+
+Foundational statements such as “Mirror imagines,” “Mirror blueprints,” and “Mirror understands context” describe the broad conceptual Mirror role. They must not be read as assigning general reasoning, personal memory, continuity, or execution ownership to Mirror Core.
+
+Older high-level flows in which ToadAid Coder leads to ToadAid MCP and then runtime execution are conceptual lifecycle diagrams, not evidence that Coder or MCP owns consequence authorization. Coder may analyze repositories, construct implementation artifacts, coordinate governed construction work, and request governed capabilities; it is not limited to analysis. MCP may expose or carry bounded capabilities and structured requests. Neither is the authority source.
+
+Where this allocation governs a local state-changing consequence, current governance is evaluated and the bounded consequence host performs the effect. The preserved distinctions are:
+
+```text
+Coder may coordinate or request governed execution
+  != Coder owns ambient execution authority
+
+MCP may expose or carry capability
+  != MCP authorizes consequence
+```
+
 ## Foundational distinctions
 
 ```text

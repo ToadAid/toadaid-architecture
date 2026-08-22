@@ -233,6 +233,8 @@ Future personal, shared/community, project, specialist, and remote agents may co
 
 The [`Governed Runtime Responsibility and Component Allocation`](blueprints/governed-runtime-component-allocation.md) blueprint assigns logical runtime responsibilities without making process placement or storage ownership a sovereignty root:
 
+`Mirror Core` in this table is the narrow governance runtime component; it is not synonymous with the broader conceptual `Mirror` role described earlier in this document.
+
 | Component | Architectural responsibility |
 |---|---|
 | Reasoning clients | Interchangeable intelligence, planning, and proposals |
