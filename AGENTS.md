@@ -72,6 +72,11 @@ attestation / AttestationId / claim / issuer-subject binding /
 evidence basis / verification / revocation / supersession /
 attestation exchange
   → contracts/attestation-and-evidence-exchange-contract.md
+
+delegated authority / GrantId / delegation / grantee /
+capability binding / target binding / one-use / standing /
+expiry / consumption / revocation / grant applicability
+  → contracts/delegated-authority-and-capability-grant-contract.md
 ```
 
 Higher-level documents may summarize these rules. If summaries diverge, do not silently choose one; reconcile against `GOVERNANCE.md` and the canonical contract.
