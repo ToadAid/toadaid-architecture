@@ -94,3 +94,19 @@ The product of the forge is inert until activation is explicitly authorized.
 Allow Tobyworld to grow a family of small, bounded specialists sharing the same governed substrate rather than becoming a collection of disconnected autonomous frameworks.
 
 The long-term measure of success is not the number of agents created. It is the ecosystem's ability to add useful capability **without losing provenance, observability, maintainability, or human sovereignty**.
+
+## Future governed runtime implementation waves
+
+The [`Governed Runtime Responsibility and Component Allocation`](blueprints/governed-runtime-component-allocation.md) defines an architecture-level sequence for later bounded implementation cuts. It does not authorize or claim completion of any wave:
+
+1. project canonical governance into a minimal Mirror Core evaluation kernel;
+2. make Mirror Desktop Bridge consume governance at the local consequence edge;
+3. project scope sovereignty into Living Agent continuity and retrieval;
+4. admit ToadAid Coder as a bounded repository specialist;
+5. admit ToadAid Trader first as an analysis and trade-intent specialist;
+6. project ToadAid Zora Agent through isolated high-consequence boundaries;
+7. carry identity, scope, request, and evidence semantics through ToadAid MCP without making it the authority owner;
+8. compose community and project runtime under explicit scope, admission, Release, and Grant law;
+9. consider external interoperability only after local sovereignty survives implementation.
+
+Every wave requires its own implementation scope, verification, and separate activation decision.

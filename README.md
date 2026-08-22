@@ -51,6 +51,8 @@ Invalidation prevents an old proof from governing a changed system.
 
 The [`Community Agent Fabric Blueprint`](blueprints/community-agent-fabric.md) describes future cross-scope collaboration built on canonical scope, agent admission, messaging, and attestation contracts without granting runtime authority.
 
+The [`Governed Runtime Responsibility and Component Allocation`](blueprints/governed-runtime-component-allocation.md) blueprint keeps reasoning, governance, continuity, transport, specialist expertise, and local consequence execution as separate responsibilities across ToadAid components.
+
 ## Mandatory read order for agents
 
 Before planning ecosystem-level work, read:
@@ -109,6 +111,7 @@ toadaid-architecture/
 ├── blueprints/
 │   ├── community-agent-fabric.md
 │   ├── governed-ecosystem-architecture.md
+│   ├── governed-runtime-component-allocation.md
 │   └── governed-agent-forge.md
 ├── contracts/
 │   ├── blueprint-contract.md
