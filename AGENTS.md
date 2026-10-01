@@ -61,7 +61,8 @@ membership / audience / cross-scope release / scope sovereignty
   → contracts/scope-sovereignty-contract.md
 
 agent identity / AgentId / principal-agent binding /
-specialist admission / remote-agent admission / admission revocation
+specialist admission / remote-agent admission / community-agent admission /
+admission decision / admission revocation
   → contracts/agent-identity-and-specialist-admission-contract.md
 
 agent-to-agent messaging / MessageId / sender-recipient binding /
