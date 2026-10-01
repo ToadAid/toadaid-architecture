@@ -128,7 +128,8 @@ toadaid-architecture/
 │   ├── trusted-channel-separation-contract.md
 │   └── verification-applicability-contract.md
 ├── maps/
-│   └── repository-map.md
+│   ├── repository-map.md
+│   └── social-control-plane.md
 └── adr/
     └── README.md
 ```
