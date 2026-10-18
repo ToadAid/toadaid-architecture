@@ -1,6 +1,6 @@
 # ADR-0001: Assign the Lane 3 trusted connection-provider to Mirror Desktop Bridge
 
-Status: proposed
+Status: accepted
 Date: 2026-10-18
 
 ## Context
@@ -118,8 +118,8 @@ Unknown or conflicting precedence fails closed to the canonical outcomes
   boundary, and collapses no distinct trust channel.
 - No provider, harness, or model output becomes authoritative for identity, admission, grant,
   policy, or authority state (`blueprints/governed-runtime-component-allocation.md` L431).
-- The human principal's review of the Bridge hypothesis is recorded here; this ADR advances
-  from `proposed` to `accepted` only by the human principal.
+- The human principal's review of the Bridge hypothesis is recorded here; this ADR was
+  accepted by the human principal on 2026-10-18.
 
 ## Migration / compatibility
 
